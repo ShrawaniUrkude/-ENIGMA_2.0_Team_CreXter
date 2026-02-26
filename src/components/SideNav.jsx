@@ -41,7 +41,6 @@ export default function SideNav({ activePage, setActivePage }) {
                             className={`side-nav-item ${activePage === item.id ? 'active' : ''}`}
                             onClick={() => setActivePage(item.id)}
                         >
-                            <span className="side-nav-item-icon">{item.icon}</span>
                             <span className="side-nav-item-label">{item.label}</span>
                             {item.badge && (
                                 <span className={`side-nav-item-badge ${item.badge === 'NEW' || item.badge === 'LIVE' ? 'new' : ''}`}>

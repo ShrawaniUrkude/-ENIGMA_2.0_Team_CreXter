@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
-import SideNav from './components/SideNav';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import StressView from './pages/StressView';
@@ -65,7 +64,6 @@ export default function App() {
     <div id="app-root">
       <StarField />
       <Navbar activePage={activePage} setActivePage={setActivePage} />
-      <SideNav activePage={activePage} setActivePage={setActivePage} />
       <main className="main-content" role="main">
         {renderPage()}
       </main>

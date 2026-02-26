@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useCountUp } from '../hooks/useCountUp';
-
 /* ─── Animated satellite orbit canvas ───────────────────────────────────── */
 function OrbitCanvas() {
     const canvasRef = useRef(null);
@@ -192,10 +191,9 @@ function StatCounter({ end, unit, decimals = 0 }) {
 }
 
 /* ─── Feature card ──────────────────────────────────────────────────────── */
-function FeatureCard({ icon, title, desc, color, delay }) {
+function FeatureCard({ icon, title, desc, color }) {
     return (
-        <div className="card animate-fade-up" style={{
-            animationDelay: `${delay}ms`,
+        <div className="card feature-card" style={{
             borderTop: `2px solid ${color}`,
             transition: 'all 0.3s ease',
         }}>
@@ -213,7 +211,7 @@ function FeatureCard({ icon, title, desc, color, delay }) {
 /* ─── Process step ──────────────────────────────────────────────────────── */
 function ProcessStep({ num, icon, title, desc, color }) {
     return (
-        <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+        <div className="process-step" style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
             <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{
                     width: '52px', height: '52px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -234,16 +232,6 @@ function ProcessStep({ num, icon, title, desc, color }) {
 /* ─── HOME PAGE ─────────────────────────────────────────────────────────── */
 export default function Home({ setActivePage }) {
 
-    /* Scroll-reveal via IntersectionObserver */
-    useEffect(() => {
-        const els = document.querySelectorAll('.reveal');
-        const io = new IntersectionObserver(entries => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
-        }, { threshold: 0.15 });
-        els.forEach(el => io.observe(el));
-        return () => io.disconnect();
-    }, []);
-
     return (
         <div id="home-page" style={{ overflow: 'hidden' }}>
 
@@ -255,7 +243,7 @@ export default function Home({ setActivePage }) {
 
                 <div style={{ flex: 1, maxWidth: '580px', zIndex: 1 }}>
                     {/* Eyebrow */}
-                    <div style={{
+                    <div className="hero-eyebrow" style={{
                         display: 'inline-flex', alignItems: 'center', gap: '8px',
                         padding: '6px 16px', borderRadius: '100px', marginBottom: '28px',
                         background: 'rgba(0,229,255,0.08)', border: '1px solid rgba(0,229,255,0.2)',
@@ -266,7 +254,7 @@ export default function Home({ setActivePage }) {
                         Powered by Sentinel-2 + Hyperspectral AI
                     </div>
 
-                    <h1 style={{
+                    <h1 className="hero-title" style={{
                         fontFamily: 'var(--font-primary)', fontSize: 'clamp(2.8rem, 5vw, 4.8rem)',
                         fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.04em', marginBottom: '24px',
                     }}>
@@ -278,11 +266,11 @@ export default function Home({ setActivePage }) {
                         }}>Before It's Visible.</span>
                     </h1>
 
-                    <p style={{ fontSize: '1.1rem', color: 'var(--color-text-secondary)', lineHeight: 1.75, marginBottom: '36px', maxWidth: '500px' }}>
+                    <p className="hero-desc" style={{ fontSize: '1.1rem', color: 'var(--color-text-secondary)', lineHeight: 1.75, marginBottom: '36px', maxWidth: '500px' }}>
                         <strong style={{ color: 'var(--color-text-primary)' }}>SkyFarm</strong> uses hyperspectral satellite imaging and AI to detect water stress and nutrient deficiency <em>10–21 days</em> before visible yellowing — saving yield, saving farms.
                     </p>
 
-                    <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '48px' }}>
+                    <div className="hero-buttons" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '48px' }}>
                         <button className="btn btn-primary" id="home-cta-dashboard" onClick={() => setActivePage('dashboard')} style={{ padding: '14px 32px', fontSize: '0.95rem' }}>
                             🛰️ Open Dashboard
                         </button>
@@ -292,13 +280,13 @@ export default function Home({ setActivePage }) {
                     </div>
 
                     {/* Trust indicators */}
-                    <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+                    <div className="hero-trust" style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
                         {[
                             { label: 'Detection Lead Time', val: '21 days' },
                             { label: 'Accuracy Rate', val: '94%' },
                             { label: 'Coverage Resolution', val: '10 m/px' },
                         ].map(d => (
-                            <div key={d.label}>
+                            <div key={d.label} className="trust-item">
                                 <div style={{ fontFamily: 'var(--font-primary)', fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-primary)' }}>{d.val}</div>
                                 <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-mono)' }}>{d.label}</div>
                             </div>
@@ -307,7 +295,7 @@ export default function Home({ setActivePage }) {
                 </div>
 
                 {/* Hero visual */}
-                <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '420px', position: 'relative', zIndex: 1 }}>
+                <div className="hero-orbit" style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '420px', position: 'relative', zIndex: 1 }}>
                     <div style={{ width: '100%', maxWidth: '520px', animation: 'float 5s ease-in-out infinite' }}>
                         <OrbitCanvas />
                     </div>
@@ -315,7 +303,7 @@ export default function Home({ setActivePage }) {
             </section>
 
             {/* ── STATS BAR ───────────────────────────────────────── */}
-            <section style={{
+            <section className="stats-section" style={{
                 padding: '32px 48px', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)',
                 background: 'rgba(0,0,0,0.25)', backdropFilter: 'blur(12px)',
             }}>
@@ -328,7 +316,7 @@ export default function Home({ setActivePage }) {
                         { val: 3, unit: '', dec: 0, label: 'Satellites Active', icon: '🛰️' },
                         { val: 100, unit: '%', dec: 0, label: 'Open Standard APIs', icon: '🔗' },
                     ].map(s => (
-                        <div key={s.label} className="reveal" style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 0.6s ease' }}>
+                        <div key={s.label} className="stat-card">
                             <div style={{ fontSize: '1.1rem', marginBottom: '6px' }}>{s.icon}</div>
                             <div style={{ fontFamily: 'var(--font-primary)', fontSize: '2rem', fontWeight: 900, color: 'var(--color-primary)', lineHeight: 1 }}>
                                 <StatCounter end={s.val} unit={s.unit} decimals={s.dec} />
@@ -340,7 +328,7 @@ export default function Home({ setActivePage }) {
             </section>
 
             {/* ── PROBLEM / SOLUTION ──────────────────────────────── */}
-            <section style={{ padding: '80px 48px' }}>
+            <section className="problem-section" style={{ padding: '80px 48px' }}>
                 <div style={{ textAlign: 'center', marginBottom: '56px' }}>
                     <div style={{ fontSize: '0.7rem', fontFamily: 'var(--font-mono)', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '12px' }}>The Problem We Solve</div>
                     <h2 style={{ fontFamily: 'var(--font-primary)', fontSize: 'clamp(1.8rem, 3.5vw, 3rem)', fontWeight: 800, letterSpacing: '-0.03em' }}>
@@ -359,7 +347,7 @@ export default function Home({ setActivePage }) {
                             { scenario: 'NDVI begins to drop', day: 'Day +8', desc: 'Standard NDVI now shows slight decline. Moderate corrective action still possible.', bad: false },
                             { scenario: 'Visual Yellowing Appears', day: 'Day +18', desc: 'Traditional systems finally detect stress. Yield loss already 30–40%. Too late for most interventions.', bad: true },
                         ].map(item => (
-                            <div key={item.day} style={{
+                            <div key={item.day} className="problem-card" style={{
                                 padding: '16px 20px', borderRadius: '12px',
                                 background: item.highlight ? 'rgba(0,229,255,0.06)' : item.bad ? 'rgba(255,56,100,0.05)' : 'rgba(255,255,255,0.02)',
                                 border: `1px solid ${item.highlight ? 'rgba(0,229,255,0.25)' : item.bad ? 'rgba(255,56,100,0.2)' : 'var(--color-border)'}`,
@@ -377,7 +365,7 @@ export default function Home({ setActivePage }) {
                     </div>
 
                     {/* Live heatmap preview */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    <div className="problem-heatmap" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         <div style={{
                             padding: '20px', borderRadius: '16px',
                             background: 'rgba(10,25,41,0.8)', border: '1px solid var(--color-border)',
@@ -398,7 +386,7 @@ export default function Home({ setActivePage }) {
             </section>
 
             {/* ── FEATURES ────────────────────────────────────────── */}
-            <section style={{ padding: '72px 48px', background: 'rgba(0,0,0,0.2)' }}>
+            <section className="features-section" style={{ padding: '72px 48px', background: 'rgba(0,0,0,0.2)' }}>
                 <div style={{ textAlign: 'center', marginBottom: '52px' }}>
                     <div style={{ fontSize: '0.7rem', fontFamily: 'var(--font-mono)', color: 'var(--color-accent-green)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '12px' }}>Platform Capabilities</div>
                     <h2 style={{ fontFamily: 'var(--font-primary)', fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 800, letterSpacing: '-0.03em' }}>
@@ -408,18 +396,18 @@ export default function Home({ setActivePage }) {
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
                     {[
-                        { icon: '🔬', title: 'Hyperspectral CNN Analysis', color: '#00e5ff', delay: 0, desc: 'A custom ResNet-1D architecture processes 200 narrow spectral bands to detect chlorophyll fluorescence decline and carotenoid shifts 10–21 days before visible symptom onset.' },
-                        { icon: '🌡️', title: 'Thermal Infrared (LST) Maps', color: '#ff6b2b', delay: 80, desc: 'Derive Land Surface Temperature from ASTER TIR bands. Compute Crop Water Stress Index (CWSI) — stressed crops transpire less and run hotter by up to 10°C.' },
-                        { icon: '📊', title: 'Multi-Index Fusion Dashboard', color: '#00ff88', delay: 160, desc: 'Combine NDVI, NDWI, Red-Edge CRE, and thermal anomaly scores into a single unified stress probability map using a calibrated weighted ensemble model.' },
-                        { icon: '🚨', title: 'Pre-Visual Alert Engine', color: '#ff3864', delay: 240, desc: 'Priority-ranked alerts fire the moment the AI detects spectral anomalies. Receive irrigation schedules, nitrogen recommendations, and action deadlines — days in advance.' },
-                        { icon: '🗺️', title: 'Zone Segmentation (U-Net)', color: '#7c3aed', delay: 320, desc: 'Semantic segmentation of field-scale stress zones into GeoJSON polygons. Drill into individual sub-field zones and compare across seasons.' },
-                        { icon: '🛰️', title: 'Multi-Satellite Constellation', color: '#ffd60a', delay: 400, desc: 'Automated ingestion from Sentinel-2A/B (5-day revisit, 10m) and ASTER (90m TIR). Atmospheric correction via Sen2Cor for bottom-of-atmosphere reflectance.' },
+                        { icon: '🔬', title: 'Hyperspectral CNN Analysis', color: '#00e5ff', desc: 'A custom ResNet-1D architecture processes 200 narrow spectral bands to detect chlorophyll fluorescence decline and carotenoid shifts 10–21 days before visible symptom onset.' },
+                        { icon: '🌡️', title: 'Thermal Infrared (LST) Maps', color: '#ff6b2b', desc: 'Derive Land Surface Temperature from ASTER TIR bands. Compute Crop Water Stress Index (CWSI) — stressed crops transpire less and run hotter by up to 10°C.' },
+                        { icon: '📊', title: 'Multi-Index Fusion Dashboard', color: '#00ff88', desc: 'Combine NDVI, NDWI, Red-Edge CRE, and thermal anomaly scores into a single unified stress probability map using a calibrated weighted ensemble model.' },
+                        { icon: '🚨', title: 'Pre-Visual Alert Engine', color: '#ff3864', desc: 'Priority-ranked alerts fire the moment the AI detects spectral anomalies. Receive irrigation schedules, nitrogen recommendations, and action deadlines — days in advance.' },
+                        { icon: '🗺️', title: 'Zone Segmentation (U-Net)', color: '#7c3aed', desc: 'Semantic segmentation of field-scale stress zones into GeoJSON polygons. Drill into individual sub-field zones and compare across seasons.' },
+                        { icon: '🛰️', title: 'Multi-Satellite Constellation', color: '#ffd60a', desc: 'Automated ingestion from Sentinel-2A/B (5-day revisit, 10m) and ASTER (90m TIR). Atmospheric correction via Sen2Cor for bottom-of-atmosphere reflectance.' },
                     ].map(f => <FeatureCard key={f.title} {...f} />)}
                 </div>
             </section>
 
             {/* ── HOW IT WORKS ────────────────────────────────────── */}
-            <section style={{ padding: '80px 48px' }}>
+            <section className="workflow-section" style={{ padding: '80px 48px' }}>
                 <div className="grid-2" style={{ gap: '64px', alignItems: 'center' }}>
                     <div>
                         <div style={{ fontSize: '0.7rem', fontFamily: 'var(--font-mono)', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '12px' }}>Under the Hood</div>
@@ -445,22 +433,23 @@ export default function Home({ setActivePage }) {
                                     ['ResNet-1D', '#7c3aed'], ['U-Net Seg.', '#f39c12'], ['GeoJSON/GeoTIFF', '#3498db'],
                                     ['FastAPI', '#009688'], ['React + Vite', '#61dafb'], ['Canvas API', '#00e5ff'],
                                 ].map(([name, color]) => (
-                                    <span key={name} style={{
+                                    <span key={name} className="stack-badge" style={{
                                         padding: '6px 14px', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 600,
                                         fontFamily: 'var(--font-mono)', background: `${color}18`, color, border: `1px solid ${color}33`,
+                                        display: 'inline-block'
                                     }}>{name}</span>
                                 ))}
                             </div>
                         </div>
 
-                        <div style={{ padding: '24px', borderRadius: '16px', background: 'rgba(0,229,255,0.05)', border: '1px solid rgba(0,229,255,0.15)' }}>
+                        <div className="stack-badge" style={{ padding: '24px', borderRadius: '16px', background: 'rgba(0,229,255,0.05)', border: '1px solid rgba(0,229,255,0.15)' }}>
                             <div style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '10px', color: 'var(--color-text-primary)' }}>🌍 Supporting UN SDG 2 — Zero Hunger</div>
                             <p style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', lineHeight: 1.6, margin: 0 }}>
                                 Early crop stress detection directly reduces food insecurity by giving farmers the time to intervene before yield loss becomes irreversible — advancing the global goal of Zero Hunger by 2030.
                             </p>
                         </div>
 
-                        <div style={{ padding: '24px', borderRadius: '16px', background: 'rgba(0,255,136,0.04)', border: '1px solid rgba(0,255,136,0.15)' }}>
+                        <div className="stack-badge" style={{ padding: '24px', borderRadius: '16px', background: 'rgba(0,255,136,0.04)', border: '1px solid rgba(0,255,136,0.15)' }}>
                             <div style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '10px', color: 'var(--color-text-primary)' }}>📦 Open Standards / Interoperability</div>
                             <p style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', lineHeight: 1.6, margin: 0 }}>
                                 All outputs are OGC/STAC-compliant GeoJSON and GeoTIFF. REST API ready to integrate with existing precision agriculture management systems, irrigation controllers, and ERP platforms.
@@ -471,14 +460,13 @@ export default function Home({ setActivePage }) {
             </section>
 
             {/* ── CTA BANNER ──────────────────────────────────────── */}
-            <section style={{
+            <section className="cta-section" style={{
                 margin: '0 48px 80px', padding: '56px 48px', borderRadius: '24px', textAlign: 'center',
                 background: 'linear-gradient(135deg, rgba(0,229,255,0.08) 0%, rgba(0,255,136,0.06) 100%)',
                 border: '1px solid rgba(0,229,255,0.18)', position: 'relative', overflow: 'hidden',
             }}>
                 <div style={{ position: 'absolute', top: '-40%', left: '50%', transform: 'translateX(-50%)', width: '600px', height: '300px', borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(0,229,255,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
-                <div style={{ position: 'relative', zIndex: 1 }}>
-                    <div style={{ fontSize: '2.5rem', marginBottom: '16px' }}>🚀</div>
+                <div className="cta-banner" style={{ position: 'relative', zIndex: 1 }}>
                     <h2 style={{ fontFamily: 'var(--font-primary)', fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '16px' }}>
                         Start Monitoring Your Fields Today
                     </h2>
@@ -498,11 +486,6 @@ export default function Home({ setActivePage }) {
                     </div>
                 </div>
             </section>
-
-            {/* Scroll-reveal CSS injected here */}
-            <style>{`
-        .revealed { opacity: 1 !important; transform: translateY(0) !important; }
-      `}</style>
         </div>
     );
 }

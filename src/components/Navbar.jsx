@@ -31,7 +31,7 @@ export default function Navbar({ activePage, setActivePage }) {
                             onKeyDown={e => e.key === 'Enter' && setActivePage(item.id)}
                             id={`nav-${item.id}`}
                         >
-                            {item.icon} {item.label}
+                            {item.label}
                         </a>
                     </li>
                 ))}
