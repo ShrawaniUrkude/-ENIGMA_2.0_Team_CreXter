@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.env
+
+# Build outputs
+frontend/dist/
+backend/uploads/
+
+# AI artifacts
+ai-service/model.joblib
+ai-service/demo_field.tif
+ai-service/samples/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Global Design Tokens ──────────────────────────────────────── */
+:root {
+  --gradient-primary: linear-gradient(135deg, #0a2513 0%, #0f172a 50%, #080e1a 100%);
+  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(45, 158, 71, 0.15);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Base Styles ───────────────────────────────────────────────── */
+body {
+  background: var(--gradient-primary);
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ── Glassmorphism Card ────────────────────────────────────────── */
+@layer components {
+  .glass-card {
+    @apply rounded-2xl border border-white/10 p-5;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--glass-shadow);
+    transition: all 0.3s ease;
+  }
+
+  .glass-card:hover {
+    border-color: rgba(45, 158, 71, 0.25);
+    box-shadow: 0 8px 32px rgba(45, 158, 71, 0.08);
+  }
+
+  .glass-card-static {
+    @apply rounded-2xl border border-white/10 p-5;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--glass-shadow);
+  }
+}
+
+/* ── Custom Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(45, 158, 71, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(45, 158, 71, 0.5);
+}
+
+/* ── Upload Dropzone ───────────────────────────────────────────── */
+.dropzone {
+  @apply border-2 border-dashed border-orbital-700/50 rounded-xl p-8 flex flex-col items-center justify-center gap-3 transition-all duration-300 cursor-pointer;
+  background: rgba(10, 37, 19, 0.3);
+}
+
+.dropzone:hover,
+.dropzone.drag-over {
+  @apply border-orbital-400 bg-orbital-950/50;
+  box-shadow: 0 0 30px rgba(45, 158, 71, 0.15);
+}
+
+/* ── Gauge Animation ───────────────────────────────────────────── */
+.gauge-arc {
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Layer Toggle Buttons ──────────────────────────────────────── */
+.layer-btn {
+  @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.layer-btn:hover {
+  @apply border-orbital-400/50;
+}
+
+.layer-btn.active {
+  @apply bg-orbital-600 border-orbital-400 text-white;
+  box-shadow: 0 0 15px rgba(45, 158, 71, 0.3);
+}
+
+/* ── Alert Badges ──────────────────────────────────────────────── */
+.badge-safe {
+  @apply bg-green-500/20 text-green-400 border border-green-500/30;
+}
+
+.badge-monitor {
+  @apply bg-amber-500/20 text-amber-400 border border-amber-500/30;
+}
+
+.badge-critical {
+  @apply bg-red-500/20 text-red-400 border border-red-500/30;
+  animation: pulse 2s infinite;
+}
+
+/* ── Loading Spinner ───────────────────────────────────────────── */
+.spinner {
+  @apply w-8 h-8 border-4 border-orbital-700 border-t-orbital-400 rounded-full;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Leaflet Overrides (dark mode) ─────────────────────────────── */
+.leaflet-container {
+  background: #0f172a !important;
+  border-radius: 12px;
+}
+
+.leaflet-control-zoom a {
+  background: rgba(15, 23, 42, 0.9) !important;
+  color: #94a3b8 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ── Landing Page: Orbit Animation ─────────────────────────────── */
+.orbit-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(45, 158, 71, 0.15);
+  border-radius: 50%;
+  animation: orbitRotate 20s linear infinite;
+}
+
+.orbit-satellite {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  animation: orbitRotate 8s linear infinite;
+  transform-origin: center 262px;
+}
+
+@keyframes orbitRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Loading Overlay: Scan Line ────────────────────────────────── */
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(45, 158, 71, 0.6), transparent);
+  animation: scanSweep 2s ease-in-out infinite;
+}
+
+@keyframes scanSweep {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* ── Comparison Slider ─────────────────────────────────────────── */
+.cursor-col-resize {
+  cursor: col-resize;
+}
