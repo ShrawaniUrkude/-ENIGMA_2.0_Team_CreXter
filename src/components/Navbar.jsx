@@ -14,7 +14,7 @@ export default function Navbar({ activePage, setActivePage }) {
             <button className="navbar-brand" onClick={() => setActivePage('dashboard')} style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <OrbitalLogo />
                 <div>
-                    <div className="navbar-title">Orbital Agronomy</div>
+                    <div className="navbar-title">SkyFarm</div>
                     <div className="navbar-subtitle">Stress-Vision Platform</div>
                 </div>
             </button>

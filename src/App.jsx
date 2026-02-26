@@ -69,7 +69,7 @@ export default function App() {
       </main>
       <footer className="footer" role="contentinfo">
         <div className="footer-left">
-          © 2026 Orbital Agronomy · Stress-Vision™ — Advancing SDG 2: Zero Hunger
+          © 2026 SkyFarm · Stress-Vision™ — Advancing SDG 2: Zero Hunger
         </div>
         <div className="footer-links">
           <a href="#" onClick={e => { e.preventDefault(); setActivePage('pipeline'); }}>Pipeline Docs</a>
@@ -119,7 +119,7 @@ function LoadingSplash() {
           WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
           marginBottom: '6px',
         }}>
-          Orbital Agronomy
+          SkyFarm
         </div>
         <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}>
           Initializing Stress-Vision™ Platform…
